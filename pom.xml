@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.7.7</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+
+  <groupId>com.wusn</groupId>
+  <artifactId>cnaas-webapi</artifactId>
+  <version>1.0.0.a-SNAPSHOT</version>
+  <name>cnaas-webapi</name>
+  <url>http://www.wusn.com</url>
+  <description>cnaas-webapi</description>
+  <packaging>war</packaging>
+
+  <properties>
+    <!-- 进行工程编码声明 -->
+    <!-- 进行JDK版本声明 -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <!-- 进行资源的统一声明 -->
+    <!-- 进行版本声明 -->
+    <!-- 集中定义依赖版本号 -->
+    <dubbo.version>2.7.18</dubbo.version>
+    <zkclient.version>0.11</zkclient.version>
+    <curator.version>4.2.0</curator.version>
+    <guava.version>31.1-jre</guava.version>
+    <hessian.version>4.0.38</hessian.version>
+    <jetty.version>10.0.10</jetty.version>
+    <netty.version>4.1.86.Final</netty.version>
+    <log4j2.version>2.17.1</log4j2.version>
+    <zookeeper.version>3.5.10</zookeeper.version>
+    <yaml.version>2.0</yaml.version>
+    <hibernate.version>5.4.24.Final</hibernate.version>
+    <hibernate-validator.version>6.0.21.Final</hibernate-validator.version>
+    <el.version>3.0.0</el.version>
+    <fastjson.version>1.2.83</fastjson.version>
+    <subgrade.version>1.2.10.a</subgrade.version>
+    <acckeeper.version>1.4.4.a</acckeeper.version>
+    <!--  Maven插件版本号  -->
+    <maven-resources-plugin.version>2.4.3</maven-resources-plugin.version>
+    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+  </properties>
+
+  <!-- 声明资源的坐标 -->
+  <!-- 只定义依赖的版本，并不实际依赖 -->
+  <dependencies>
+      <!--    Spring    -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-tomcat</artifactId>
+        <scope>provided</scope>
+      </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+      <!-- Dubbo -->
+      <dependency>
+        <groupId>org.apache.dubbo</groupId>
+        <artifactId>dubbo-spring-boot-starter</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+          </exclusion>
+        </exclusions>
+        <version>${dubbo.version}</version>
+      </dependency>
+      <!-- zkClient依赖-->
+      <dependency>
+        <groupId>com.101tec</groupId>
+        <artifactId>zkclient</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>io.netty</groupId>
+            <artifactId>netty</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+          </exclusion>
+        </exclusions>
+        <version>${zkclient.version}</version>
+      </dependency>
+      <!-- Curator框架 -->
+      <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-recipes</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+          </exclusion>
+        </exclusions>
+        <version>${curator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+      <!-- hessian依赖 -->
+      <dependency>
+        <groupId>com.caucho</groupId>
+        <artifactId>hessian</artifactId>
+        <version>${hessian.version}</version>
+      </dependency>
+      <!-- jetty依赖 -->
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-servlet</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-server</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-util</artifactId>
+        <version>${jetty.version}</version>
+      </dependency>
+      <!-- Netty网络连接包 -->
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>${netty.version}</version>
+      </dependency>
+      <!-- Zookeeper -->
+      <dependency>
+        <groupId>org.apache.zookeeper</groupId>
+        <artifactId>zookeeper</artifactId>
+        <version>${zookeeper.version}</version>
+      </dependency>
+      <!-- yaml -->
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>${yaml.version}</version>
+      </dependency>
+      <!-- 日志处理 -->
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j2.version}</version>
+      </dependency>
+      <!-- hibernate组件 -->
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${hibernate.version}</version>
+      </dependency>
+      <!-- Hibernate验证器 -->
+      <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${hibernate-validator.version}</version>
+      </dependency>
+      <!-- EL组件 -->
+      <dependency>
+        <groupId>org.glassfish</groupId>
+        <artifactId>javax.el</artifactId>
+        <version>${el.version}</version>
+      </dependency>
+      <!-- FastJson Json处理工具包 -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${fastjson.version}</version>
+      </dependency>
+      <!-- subgrade组件 -->
+      <dependency>
+        <groupId>com.dwarfeng</groupId>
+        <artifactId>subgrade-stack</artifactId>
+        <version>${subgrade.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.dwarfeng</groupId>
+        <artifactId>subgrade-sdk</artifactId>
+        <version>${subgrade.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>jaxb-api</artifactId>
+            <groupId>javax.xml.bind</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>spring-data-redis</artifactId>
+            <groupId>org.springframework.data</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>spring-orm</artifactId>
+            <groupId>org.springframework</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>kafka-clients</artifactId>
+            <groupId>org.apache.kafka</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>spring-kafka</artifactId>
+            <groupId>org.springframework.kafka</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>spring-orm</artifactId>
+            <groupId>org.springframework</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>hibernate-core</artifactId>
+            <groupId>org.hibernate</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>hibernate-validator</artifactId>
+            <groupId>org.hibernate.validator</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>javax.el</artifactId>
+            <groupId>org.glassfish</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>dozer</artifactId>
+            <groupId>net.sf.dozer</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>dozer-spring</artifactId>
+            <groupId>net.sf.dozer</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>fastjson</artifactId>
+            <groupId>com.alibaba</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>mybatis</artifactId>
+            <groupId>org.mybatis</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>mybatis-spring</artifactId>
+            <groupId>org.mybatis</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>mybatis</artifactId>
+            <groupId>org.mybatis</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>commons-collections</artifactId>
+            <groupId>commons-collections</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>com.dwarfeng</groupId>
+        <artifactId>subgrade-impl</artifactId>
+        <version>${subgrade.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>spring-data-redis</artifactId>
+            <groupId>org.springframework.data</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>spring-orm</artifactId>
+            <groupId>org.springframework</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>spring-kafka</artifactId>
+            <groupId>org.springframework.kafka</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>hibernate-core</artifactId>
+            <groupId>org.hibernate</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>dom4j</artifactId>
+            <groupId>dom4j</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>hibernate-validator</artifactId>
+            <groupId>org.hibernate.validator</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>dutil-develop</artifactId>
+            <groupId>com.dwarfeng</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>javax.el</artifactId>
+            <groupId>org.glassfish</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>dozer</artifactId>
+            <groupId>net.sf.dozer</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>dozer-spring</artifactId>
+            <groupId>net.sf.dozer</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>commons-beanutils</artifactId>
+            <groupId>commons-beanutils</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>fastjson</artifactId>
+            <groupId>com.alibaba</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>mybatis-spring</artifactId>
+            <groupId>org.mybatis</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>mybatis</artifactId>
+            <groupId>org.mybatis</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <!-- acckeeper -->
+      <dependency>
+        <groupId>com.dwarfeng</groupId>
+        <artifactId>account-keeper-stack</artifactId>
+        <version>${acckeeper.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.dwarfeng</groupId>
+        <artifactId>account-keeper-sdk</artifactId>
+        <version>${acckeeper.version}</version>
+      </dependency>
+    </dependencies>
+
+  <build>
+    <finalName>cnaas-webapi</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+    </plugins>
+    <!-- 配置资源目录 -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+  </build>
+
+</project>
